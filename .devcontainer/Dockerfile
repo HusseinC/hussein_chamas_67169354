@@ -1,15 +1,20 @@
-FROM node:14
+# Use the official Node.js 16 image as a base
+FROM node:16
 
-# Create app directory
-WORKDIR /usr/src/app
+# Set the working directory in the container to /app
+WORKDIR /app
 
-# Install app dependencies
+# Copy package.json and package-lock.json if present
 COPY package*.json ./
+
+# Install any dependencies
 RUN npm install
 
-# Bundle app source
+# Copy the rest of your application code to the container
 COPY . .
 
-EXPOSE 8080
-CMD [ "node", "app.js" ]
+# Expose port 3000 for your application
+EXPOSE 3000
 
+# Command to run your application
+CMD ["npm", "run", "dev"]
